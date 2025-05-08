@@ -1,12 +1,12 @@
 # https://stackoverflow.com/questions/12688717/round-up-from-5
 #rnd <- function(x) trunc(x + sign(x) * 0.5)
 round2 = function(x, n = 0) {
-  posneg = sign(x)
-  z = abs(x)*10^n
-  z = z + 0.5 + sqrt(.Machine$double.eps)
-  z = trunc(z)
-  z = z/10^n
-  z*posneg
+	posneg = sign(x)
+	z = abs(x)*10^n
+	z = z + 0.5 + sqrt(.Machine$double.eps)
+	z = trunc(z)
+	z = z/10^n
+	z*posneg
 }
 # a = seq(0.5, 10.5, by = 0.5)
 # names(a) = a
@@ -23,7 +23,7 @@ round_num = function(x, round_to) round2(x / round_to) * round_to
 #' 
 #' Bake donuts
 #' 
-#' @param x \code{\link[odf:od]{od}} object
+
 #' @param var name of the variable in x$E that contain the flow values
 #' @param totals total numbers of units per origin. If \code{NULL} (default) the totals are derived from \code{x}. This parameter is useful, because in some applications, the total may deviate because of rounding errors.
 #' @param text list of text labels in the visualization. See default function call for required list items.
@@ -50,7 +50,6 @@ round_num = function(x, round_to) round2(x / round_to) * round_to
 #' @param tm \code{tmap} element that can be used to stack donut maps
 #' @param title \code{Title}
 #' @param basemaps \code{Basemaps} See \code{\link[tmap:tm_basemap]{tm_basemap}}.
-#' @import odf
 #' @import tmap
 #' @importFrom sf st_set_crs
 #' @importFrom dplyr group_by slice ungroup transmute as_tibble select n filter sym group_by_at "%>%" rename summarize left_join mutate vars tibble case_when everything arrange desc
@@ -60,63 +59,63 @@ round_num = function(x, round_to) round2(x / round_to) * round_to
 #' @export
 #' @example examples/bake_donuts.R
 bake_donuts = function(x,
-                       var,
-                       totals = NULL,
-
-  text = list(  legend_title = "Region",
-                legend_other = "Other region",
-                legend_stay = "Home region",
-                
-                popup_residents = "Residents",
-                popup_stay = "Staying",
-                popup_other = "&nbsp;&nbsp;&nbsp;&nbsp;to other regions",
-                popup_inflow = "From other regions",
-                popup_outflow = "Leaving",
-                popup_to = "&nbsp;&nbsp;&nbsp;&nbsp;",
-
-                edge_to = "to",
-                edge_flow = "Flow"),
-  
-  groupname = "Data",
-  highlight = NULL,
-  pal = c("blue", "grey70"),
-  
-  donut_size_min = NA,
-  donut_size_max = NA,
-  
-  donut_scale = 1.5,
-
-  flow_th = NA,
-  flow_max = NA,
-  flow_buffer = NA,
-  
-  flow_scale = 10,
-  
-  round_to = 1,
-  
-  edge_incoming = TRUE,
-  donut_incoming = TRUE,
-  edge_incoming_only = FALSE,
-  home4all = TRUE,
-  popup_perc_totals = TRUE,
-  popup_perc_items = FALSE,
-  
-  groups = list(),
-  mute = NULL,
-  legend = TRUE,
-  group_label_show = FALSE,
-  group_label_cex = 1, 
-  group_trunc_m = 2000,
-  border = NULL,
-  tm = NULL,
-  title = NULL,
-  basemaps = c("Esri.WorldGrayCanvas", "OpenStreetMap")
+					   var,
+					   totals = NULL,
+					   
+					   text = list(  legend_title = "Region",
+					   			  legend_other = "Other region",
+					   			  legend_stay = "Home region",
+					   			  
+					   			  popup_residents = "Residents",
+					   			  popup_stay = "Staying",
+					   			  popup_other = "&nbsp;&nbsp;&nbsp;&nbsp;to other regions",
+					   			  popup_inflow = "From other regions",
+					   			  popup_outflow = "Leaving",
+					   			  popup_to = "&nbsp;&nbsp;&nbsp;&nbsp;",
+					   			  
+					   			  edge_to = "to",
+					   			  edge_flow = "Flow"),
+					   
+					   groupname = "Data",
+					   highlight = NULL,
+					   pal = c("blue", "grey70"),
+					   
+					   donut_size_min = NA,
+					   donut_size_max = NA,
+					   
+					   donut_scale = 1.5,
+					   
+					   flow_th = NA,
+					   flow_max = NA,
+					   flow_buffer = NA,
+					   
+					   flow_scale = 10,
+					   
+					   round_to = 1,
+					   
+					   edge_incoming = TRUE,
+					   donut_incoming = TRUE,
+					   edge_incoming_only = FALSE,
+					   home4all = TRUE,
+					   popup_perc_totals = TRUE,
+					   popup_perc_items = FALSE,
+					   
+					   groups = list(),
+					   mute = NULL,
+					   legend = TRUE,
+					   group_label_show = FALSE,
+					   group_label_cex = 1, 
+					   group_trunc_m = 2000,
+					   border = NULL,
+					   tm = NULL,
+					   title = NULL,
+					   basemaps = c("Esri.WorldGrayCanvas", "OpenStreetMap")
 ) {
-
+	
 	name <- name_from <- name_to <- label <- code <- flow_res <- residents_ <- class_to <- class_from <- width <- code_from <- code_to <- flow <- show <- value <- NULL  
 	
 	
-	stopifnot(odf::od_is_valid(x))
+	#stopifnot(od_is_valid(x))
 	
 	name_e = c(attr(x, "od_orig"), attr(x, "od_dest"), var)
 	name_u = attr(x, "od_id")
@@ -131,7 +130,7 @@ bake_donuts = function(x,
 	attr(x, "od_orig") = "code_from"
 	attr(x, "od_dest") = "code_to"
 	
-	stopifnot(odf::od_is_valid(x))
+	#stopifnot(od_is_valid(x))
 	
 	if (length(pal) != (length(highlight) + 2L)) stop("Length of pal should be ", (length(highlight) + 2L))
 	names(pal) <- c(highlight, "other_", "stay_")
@@ -222,9 +221,9 @@ bake_donuts = function(x,
 	xudf <- x$U
 	
 	# calculate text$inflow and text$outflow
-	x <- odf::od_sum_out(x, "flow")
-	x <- odf::od_sum_in(x, "flow")
-	x <- odf::od_sum_stay(x, "flow")
+	x <- od_sum_out(x, "flow")
+	x <- od_sum_in(x, "flow")
+	x <- od_sum_stay(x, "flow")
 	
 	if(donut_incoming){
 		x$U$flow_res = round_num(x$U$flow_stay + x$U$flow_in, round_to)
@@ -398,15 +397,15 @@ bake_donuts = function(x,
 			df = df %>% 
 				mutate(class = factor(class, levels = lvls))
 			singleCat <- sum(df$value != 0) <= 1L
-			ggplotGrob(ggplot(df, aes(x=2, y=value, fill = class)) +
-					   	geom_bar(stat="identity", width=1, size = ifelse(singleCat, 0, 2 * scale), color = "white", show.legend = FALSE) +
-					   	geom_vline(xintercept = 2.5, color = "white", size = 5 * scale) +
-					   	geom_rect(xmin = 0, xmax = .75, ymin = 0, ymax = sum(df$value), size = 0, color = "white", fill = "grey90") +
-					   	geom_vline(xintercept = 1.5, color = "white", size = 5 * scale ) +
-					   	scale_fill_manual(values = pal) +
-					   	coord_polar("y", start=0) +
-					   	xlim(.75, 2.5) +
-					   	theme_void())
+			ggplot2::ggplotGrob(ggplot(df, aes(x=2, y=value, fill = class)) +
+									geom_bar(stat="identity", width=1, size = ifelse(singleCat, 0, 2 * scale), color = "white", show.legend = FALSE) +
+									geom_vline(xintercept = 2.5, color = "white", size = 5 * scale) +
+									geom_rect(xmin = 0, xmax = .75, ymin = 0, ymax = sum(df$value), size = 0, color = "white", fill = "grey90") +
+									geom_vline(xintercept = 1.5, color = "white", size = 5 * scale ) +
+									scale_fill_manual(values = pal) +
+									coord_polar("y", start=0) +
+									xlim(.75, 2.5) +
+									theme_void())
 		})
 		names(grobs) <- U$name
 		grobs
@@ -601,4 +600,3 @@ bake_donuts = function(x,
 	tm
 	
 }
-  
